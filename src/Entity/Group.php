@@ -25,9 +25,17 @@ class Group
     #[ORM\OneToMany(mappedBy: 'fromGroup', targetEntity: Invitation::class)]
     private Collection $invitations;
 
+    #[ORM\OneToMany(mappedBy: 'inGroup', targetEntity: Character::class)]
+    private Collection $characters;
+
+    #[ORM\OneToMany(mappedBy: 'party', targetEntity: Message::class)]
+    private Collection $messages;
+
     public function __construct()
     {
         $this->invitations = new ArrayCollection();
+        $this->characters = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +91,66 @@ class Group
             // set the owning side to null (unless already changed)
             if ($invitation->getFromGroup() === $this) {
                 $invitation->setFromGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Character>
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+            $character->setInGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getInGroup() === $this) {
+                $character->setInGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setParty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getParty() === $this) {
+                $message->setParty(null);
             }
         }
 
