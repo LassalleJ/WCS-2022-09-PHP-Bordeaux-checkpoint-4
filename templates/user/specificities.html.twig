@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div id="playing-way-selection-block">
+        <p>{{ form_label(form.playingWay) }}</p>
+        {{ form_widget(form.playingWay) }}
+        {% for child in form.playingWay.children %}
+            <input type="button" class="mb-5 btn btn-primary playing-way-select-button" value="{{ child.vars.label }}"/>
+        {% endfor %}
+    </div>
+   <div id="role-flexibility-selection-block" class="hidden">
+       <p>{{ form_label(form.roleFlexibility) }}</p>
+       {{ form_widget(form.roleFlexibility) }}
+       {% for child in form.roleFlexibility.children %}
+           <input type="button" class="mb-5 btn btn-primary role-flexibility-select-button" value="{{ child.vars.label }}"/>
+       {% endfor %}
+   </div>
+    <div id="class-flexibility-selection-block" class="hidden">
+        <p>{{ form_label(form.classFlexibility) }}</p>
+        {{ form_widget(form.classFlexibility) }}
+        {% for child in form.classFlexibility.children %}
+            <input type="button" class="mb-5 btn btn-primary class-flexibility-select-button" value="{{ child.vars.label }}"/>
+        {% endfor %}
+    </div>
+    <div id="speak-english-selection-block" class="hidden">
+        <p>{{ form_label(form.speakEnglish) }}</p>
+
+        {{ form_widget(form.speakEnglish) }}
+        {% for child in form.speakEnglish.children %}
+            <input type="button" class="mb-5 btn btn-primary speak-english-select-button" value="{{ child.vars.label }}"/>
+        {% endfor %}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
