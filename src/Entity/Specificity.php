@@ -20,11 +20,11 @@ class Specificity
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $playingWay = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $roleFlexibility = null;
+    #[ORM\Column(nullable: true)]
+    private ?bool $roleFlexibility = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $classFlexibility = null;
+    #[ORM\Column(nullable: true)]
+    private ?bool $classFlexibility = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $speakEnglish = null;
@@ -58,24 +58,24 @@ class Specificity
         return $this;
     }
 
-    public function getRoleFlexibility(): ?string
+    public function isRoleFlexibility(): ?bool
     {
         return $this->roleFlexibility;
     }
 
-    public function setRoleFlexibility(?string $roleFlexibility): self
+    public function setRoleFlexibility(?bool $roleFlexibility): self
     {
         $this->roleFlexibility = $roleFlexibility;
 
         return $this;
     }
 
-    public function getClassFlexibility(): ?string
+    public function isClassFlexibility(): ?bool
     {
         return $this->classFlexibility;
     }
 
-    public function setClassFlexibility(?string $classFlexibility): self
+    public function setClassFlexibility(?bool $classFlexibility): self
     {
         $this->classFlexibility = $classFlexibility;
 
