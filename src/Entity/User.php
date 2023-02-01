@@ -62,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class)]
     private Collection $messages;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Group $inParty = null;
+
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
@@ -334,6 +337,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $message->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInParty(): ?Group
+    {
+        return $this->inParty;
+    }
+
+    public function setInParty(?Group $inParty): self
+    {
+        $this->inParty = $inParty;
 
         return $this;
     }
