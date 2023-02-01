@@ -1,9 +1,57 @@
+@font-face {
+  font-family: "LifeCraft";
+  src: url("./fonts/LifeCraft/LifeCraft_Font.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
 .radio-button-input label {
   display: none;
 }
 
 .hidden {
   display: none;
+}
+
+.group-block {
+  height: 380px;
+  width: 82%;
+  background-color: #0B0B0F;
+  color: white;
+  margin: auto;
+}
+
+.group-details-name {
+  font-family: LifeCraft, serif;
+  font-size: 32px;
+  color: #8d6f23;
+  position: relative;
+}
+.group-details-name:after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  left: 5%;
+}
+
+.role-icon {
+  border: 2px solid #E3CF94;
+}
+
+.main-title-navbar {
+  font-family: LifeCraft, serif;
+  color: #8d6f23;
+  font-size: 32px;
+  margin-left: 10px;
+}
+
+.navbar {
+  background-color: #0B0B0F;
+}
+
+.body {
+  background-color: #E3CF94;
 }
 
 /*# sourceMappingURL=app.css.map */

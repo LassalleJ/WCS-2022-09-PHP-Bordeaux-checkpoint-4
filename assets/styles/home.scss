@@ -1,0 +1,26 @@
+.group-block {
+  height:380px;
+  width:82%;
+  background-color: $background-dark;
+  color:white;
+  margin:auto;
+}
+.group-details-name {
+  font-family: LifeCraft, serif;
+  font-size:32px;
+  color:$main-title;
+  position:relative;
+  &:after {
+    content:"";
+    width:90%;
+    height:1px;
+    background-color: $main-background;
+    position:absolute;
+    left:5%;
+
+  }
+
+}
+.role-icon {
+  border:2px solid $main-background;
+}

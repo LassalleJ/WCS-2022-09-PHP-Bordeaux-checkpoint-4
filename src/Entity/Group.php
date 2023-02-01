@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GroupRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,12 +35,16 @@ class Group
     #[ORM\OneToMany(mappedBy: 'inParty', targetEntity: User::class)]
     private Collection $users;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->invitations = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->setCreatedAt(new DateTimeImmutable());
     }
 
     public function getId(): ?int
@@ -187,6 +192,18 @@ class Group
                 $user->setInParty(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
