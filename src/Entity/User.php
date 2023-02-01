@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->invitations = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->setCreatedAt(new DateTimeImmutable());
     }
 
     public function getId(): ?int
