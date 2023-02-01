@@ -11,13 +11,14 @@ use Faker\Factory;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const USERNAMES=['Reianto', 'Linolf', 'Disiel', 'Ludval', 'Dragokesh', 'Iusuth', 'Rasbald' ,'Rianter' ,'Nanin' ,'Ludbet', 'Balduron', 'Nintir', 'Ednidas', 'Fastkev', 'Trysthor', 'Rianbald', 'Eeraob', 'Flonas', 'Wulfvell', 'Claivell', 'Garhadri', 'Hectian', 'Norefre', 'Ningar'];
     public function load(ObjectManager $manager): void
     {
-        $faker=Factory::create();
-        for ($i = 0 ; $i<50 ; $i++) {
+        $faker = Factory::create();
+        for ($i = 0; $i < 50; $i++) {
             $user = new User;
             $user->setEmail($faker->email());
-            $user->setUsername($faker->userName());
+            $user->setUsername($faker->randomElement(self::USERNAMES));
             $user->setPassword(password_hash('123456789', null));
             $user->setBattletag($faker->userName());
             if ($i % 2) {
@@ -26,12 +27,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
-        $index=0;
-        for ($j = 16 ; $j < 25 ; $j++) {
-            for( $k = 0 ; $k < 5 ; $k++) {
+        $index = 0;
+        for ($j = 16; $j < 25; $j++) {
+            for ($k = 0; $k < 5; $k++) {
                 $user = new User();
                 $user->setEmail($faker->email());
-                $user->setUsername($faker->userName());
+                $user->setUsername($faker->randomElement(self::USERNAMES));
                 $user->setPassword(password_hash('123456789', null));
                 $user->setBattletag($faker->userName());
                 $user->setBattletag($faker->userName());
@@ -42,58 +43,77 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $manager->persist($user);
             }
         }
-        for ($l=0;$l<16;$l++) {
-            if ($l<4) {
-                $user = new User();
-                $user->setEmail('firstgroup' . $l . '@lff.com');
-                $user->setUsername($faker->userName());
-                $user->setPassword(password_hash('123456789', null));
-                $user->setBattletag($faker->userName());
-                $user->setBattletag($faker->userName());
-                $user->setDiscord($faker->userName());
-                $user->setInParty($this->getReference('group_' . $l));
-                $this->addReference('casu_user_'.$l, $user);
-                $manager->persist($user);
-            } elseif ($l<8) {
+        $casuIndex = 0;
+        for ($l = 0; $l < 4; $l++) {
+            for ($m = 0; $m < 4; $m++) {
                 $user = new User();
                 $user->setEmail($faker->email());
-                $user->setUsername($faker->userName());
+                $user->setUsername($faker->randomElement(self::USERNAMES));
                 $user->setPassword(password_hash('123456789', null));
                 $user->setBattletag($faker->userName());
                 $user->setBattletag($faker->userName());
                 $user->setDiscord($faker->userName());
                 $user->setInParty($this->getReference('group_' . $l));
-                $this->addReference('both_user_'.$l, $user);
-                $manager->persist($user);
-            } elseif ($l<12) {
-                $user = new User();
-                $user->setEmail($faker->email());
-                $user->setUsername($faker->userName());
-                $user->setPassword(password_hash('123456789', null));
-                $user->setBattletag($faker->userName());
-                $user->setBattletag($faker->userName());
-                $user->setDiscord($faker->userName());
-                $user->setInParty($this->getReference('group_' . $l));
-                $this->addReference('tryhard_user_'.$l, $user);
+                $this->addReference('casu_user_' . $casuIndex, $user);
+                $casuIndex++;
                 $manager->persist($user);
             }
-            $user = new User();
-            $user->setEmail($faker->email());
-            $user->setUsername($faker->userName());
-            $user->setPassword(password_hash('123456789', null));
-            $user->setBattletag($faker->userName());
-            $user->setBattletag($faker->userName());
-            $user->setDiscord($faker->userName());
-            $user->setInParty($this->getReference('group_' . $l));
-            $this->addReference('casualflex_user_'.$l, $user);
-            $manager->persist($user);
+
+        }
+        $bothIndex=0;
+        for ($l = 4; $l < 8; $l++) {
+            for ($m = 0; $m < 3; $m++) {
+                $user = new User();
+                $user->setEmail($faker->email());
+                $user->setUsername($faker->randomElement(self::USERNAMES));
+                $user->setPassword(password_hash('123456789', null));
+                $user->setBattletag($faker->userName());
+                $user->setBattletag($faker->userName());
+                $user->setDiscord($faker->userName());
+                $user->setInParty($this->getReference('group_' . $l));
+                $this->addReference('both_user_' . $bothIndex, $user);
+                $bothIndex++;
+                $manager->persist($user);
+            }
+        }
+        $tryhardIndex=0;
+        for ($l = 8; $l < 12; $l++) {
+            for ($m = 0; $m < 2; $m++) {
+                $user = new User();
+                $user->setEmail($faker->email());
+                $user->setUsername($faker->randomElement(self::USERNAMES));
+                $user->setPassword(password_hash('123456789', null));
+                $user->setBattletag($faker->userName());
+                $user->setBattletag($faker->userName());
+                $user->setDiscord($faker->userName());
+                $user->setInParty($this->getReference('group_' . $l));
+                $this->addReference('tryhard_user_' .$tryhardIndex, $user);
+                $tryhardIndex++;
+                $manager->persist($user);
+            }
+        }
+        $casualFlexIndex=0;
+        for ($l = 12; $l < 16; $l++) {
+            for ($m = 0; $m < 1; $m++) {
+                $user = new User();
+                $user->setEmail($faker->email());
+                $user->setUsername($faker->randomElement(self::USERNAMES));
+                $user->setPassword(password_hash('123456789', null));
+                $user->setBattletag($faker->userName());
+                $user->setBattletag($faker->userName());
+                $user->setDiscord($faker->userName());
+                $user->setInParty($this->getReference('group_' . $l));
+                $this->addReference('casualflex_user_' . $casualFlexIndex, $user);
+                $casualFlexIndex++;
+                $manager->persist($user);
+            }
         }
 
 
         $manager->flush();
     }
 
-    public function getDependencies():array
+    public function getDependencies(): array
     {
         return [
             GroupFixtures::class,
