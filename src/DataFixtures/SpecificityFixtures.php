@@ -40,41 +40,41 @@ class SpecificityFixtures extends Fixture implements DependentFixtureInterface
             $spec->setUser($this->getReference('spec_user_' . $i));
             $manager->persist($spec);
         }
-        for($i=0; $i<4; $i++) {
-            $specCasu=new Specificity();
+        for($i=0; $i<16; $i++) {
+            $specCasu = new Specificity();
             $specCasu->setSpeakEnglish(true);
             $specCasu->setPlayingWay('casual');
             $specCasu->setRoleFlexibility(false);
             $specCasu->setClassFlexibility(false);
             $specCasu->setUser($this->getReference('casu_user_' . $i));
+            $manager->persist($specCasu);
+        }
+        for($i=0; $i<12; $i++) {
+            $specBoth=new Specificity();
+            $specBoth->setSpeakEnglish(true);
+            $specBoth->setPlayingWay('both');
+            $specBoth->setRoleFlexibility(true);
+            $specBoth->setClassFlexibility(true);
+            $specBoth->setUser($this->getReference('both_user_' . $i));
+            $manager->persist($specBoth);
+        }
+        for($i=0; $i<8; $i++) {
+            $spec=new Specificity();
+            $spec->setSpeakEnglish(true);
+            $spec->setPlayingWay('tryhard');
+            $spec->setRoleFlexibility(false);
+            $spec->setClassFlexibility(true);
+            $spec->setUser($this->getReference('tryhard_user_' . $i));
             $manager->persist($spec);
         }
-        for($i=4; $i<8; $i++) {
+        for($i=0; $i<4; $i++) {
             $specCasu=new Specificity();
             $specCasu->setSpeakEnglish(true);
-            $specCasu->setPlayingWay('both');
-            $specCasu->setRoleFlexibility(true);
-            $specCasu->setClassFlexibility(true);
-            $specCasu->setUser($this->getReference('both_user_' . $i));
-            $manager->persist($spec);
-        }
-        for($i=8; $i<12; $i++) {
-            $specCasu=new Specificity();
-            $specCasu->setSpeakEnglish(true);
-            $specCasu->setPlayingWay('tryhard');
-            $specCasu->setRoleFlexibility(true);
-            $specCasu->setClassFlexibility(true);
-            $specCasu->setUser($this->getReference('tryhard_user_' . $i));
-            $manager->persist($spec);
-        }
-        for($i=12; $i<16; $i++) {
-            $specCasu=new Specificity();
-            $specCasu->setSpeakEnglish(true);
-            $specCasu->setPlayingWay('tryhard');
+            $specCasu->setPlayingWay('casual');
             $specCasu->setRoleFlexibility(true);
             $specCasu->setClassFlexibility(true);
             $specCasu->setUser($this->getReference('casualflex_user_' . $i));
-            $manager->persist($spec);
+            $manager->persist($specCasu);
         }
 
 
