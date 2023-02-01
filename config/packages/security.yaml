@@ -19,7 +19,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_login
+                target: app_home
             custom_authenticator: App\Security\UserAuthenticator
 
             # activate different ways to authenticate

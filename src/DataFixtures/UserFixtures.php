@@ -14,7 +14,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker=Factory::create();
-        for ($i = 0 ; $i<100 ; $i++) {
+        for ($i = 0 ; $i<50 ; $i++) {
             $user = new User;
             $user->setEmail($faker->email());
             $user->setUsername($faker->userName());
@@ -45,7 +45,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($l=0;$l<16;$l++) {
             if ($l<4) {
                 $user = new User();
-                $user->setEmail($faker->email());
+                $user->setEmail('firstgroup' . $l . '@lff.com');
                 $user->setUsername($faker->userName());
                 $user->setPassword(password_hash('123456789', null));
                 $user->setBattletag($faker->userName());
@@ -54,8 +54,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user->setInParty($this->getReference('group_' . $l));
                 $this->addReference('casu_user_'.$l, $user);
                 $manager->persist($user);
-            }
-            if ($l<8) {
+            } elseif ($l<8) {
                 $user = new User();
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->userName());
@@ -66,8 +65,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user->setInParty($this->getReference('group_' . $l));
                 $this->addReference('both_user_'.$l, $user);
                 $manager->persist($user);
-            }
-            if ($l<12) {
+            } elseif ($l<12) {
                 $user = new User();
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->userName());
@@ -78,7 +76,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user->setInParty($this->getReference('group_' . $l));
                 $this->addReference('tryhard_user_'.$l, $user);
                 $manager->persist($user);
-
             }
             $user = new User();
             $user->setEmail($faker->email());
@@ -90,9 +87,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setInParty($this->getReference('group_' . $l));
             $this->addReference('casualflex_user_'.$l, $user);
             $manager->persist($user);
-
-
-
         }
 
 

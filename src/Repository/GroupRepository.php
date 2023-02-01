@@ -39,6 +39,12 @@ class GroupRepository extends ServiceEntityRepository
         }
     }
 
+//    public function getLastGroups()
+//    {
+//        $this->createQueryBuilder('g')
+//        ->
+//    }
+
 //    /**
 //     * @return Group[] Returns an array of Group objects
 //     */

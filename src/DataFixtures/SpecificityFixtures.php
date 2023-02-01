@@ -14,7 +14,7 @@ class SpecificityFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        for($i=0;$i<100;$i++){
+        for($i=0;$i<50;$i++){
             $spec = new Specificity();
             $spec->setUser($this->getReference('user_' . $i));
             if ($i % 2) {
