@@ -31,11 +31,15 @@ class Group
     #[ORM\OneToMany(mappedBy: 'party', targetEntity: Message::class)]
     private Collection $messages;
 
+    #[ORM\OneToMany(mappedBy: 'inParty', targetEntity: User::class)]
+    private Collection $users;
+
     public function __construct()
     {
         $this->invitations = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +155,36 @@ class Group
             // set the owning side to null (unless already changed)
             if ($message->getParty() === $this) {
                 $message->setParty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setInParty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getInParty() === $this) {
+                $user->setInParty(null);
             }
         }
 
