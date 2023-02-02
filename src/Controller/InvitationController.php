@@ -71,7 +71,22 @@ class InvitationController extends AbstractController
         foreach($invitations as $invitation) {
             $manager->getRepository(Invitation::class)->remove($invitation);
         }
+        $currentUserGroup = $currentUser->getInParty();
+        if (count($currentUserGroup->getCharacters()) === 5) {
+            $currentUserGroup->setIsFull(true);
+        }
+        $userChars=$user->getCharacters();
+        foreach($userChars as $char) {
+            $char->setInGroup($currentUserGroup);
+            $manager->persist($char);
+        }
         $user->setInParty($currentUser->getInParty());
+        $notification = new Notification();
+        $notification->setContent($currentUser->getUsername() . ' has accepted your demand!');
+        $notification->setType('Accept');
+        $notification->setUser($user);
+        $manager -> persist($currentUserGroup);
+        $manager->persist($notification);
         $manager->persist($user);
         $manager->flush();
         $this->addFlash('success', 'You have successfully recruited a new group member !');

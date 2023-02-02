@@ -135,6 +135,10 @@
   margin: auto;
 }
 
+.delete-notif-icon {
+  color: #8d6f23;
+}
+
 .user-username {
   font-family: LifeCraft, sans-serif;
   font-size: 48px;

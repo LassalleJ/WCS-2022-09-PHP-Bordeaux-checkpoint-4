@@ -14,6 +14,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $manager): Response
     {
+        $userGroup = null;
         if ($this->getUser()) {
             /** @var User $user */
             $user=$this->getUser();
