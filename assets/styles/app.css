@@ -55,6 +55,19 @@
   color: #8d6f23 !important;
 }
 
+.notifs-bell {
+  color: #8d6f23;
+  font-size: 25px;
+}
+
+.notifs-number {
+  font-size: 18px;
+}
+
+.notifs-empty {
+  color: #909092;
+}
+
 .group-member-infos {
   width: 20%;
 }
@@ -69,6 +82,52 @@
 
 .leader {
   color: gold;
+}
+
+.notif-block {
+  background-color: #0B0B0F;
+  width: 82%;
+}
+
+.notifs-title {
+  color: #8d6f23;
+  font-family: LifeCraft, serif;
+  font-size: 1.8rem;
+  text-align: center;
+  position: relative;
+}
+.notifs-title:after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+}
+
+.notifs-text {
+  color: white;
+}
+
+.notifs-date {
+  width: 40%;
+}
+
+.notifs-content {
+  width: 60%;
+}
+
+.notif-link:hover {
+  border: 3px solid #E3CF94;
+}
+.notif-link:active {
+  border: 3px solid #E3CF94;
+}
+
+.notif-single-block {
+  width: 85%;
+  margin: auto;
 }
 
 body {

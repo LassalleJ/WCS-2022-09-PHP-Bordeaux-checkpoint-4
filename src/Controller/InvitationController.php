@@ -44,7 +44,7 @@ class InvitationController extends AbstractController
         $notif = new Notification();
         $notif->setType("Apply");
         $notif->setUser($groupLeader);
-        $notif->setContent($user->getUsername() . ' wants to join your group');
+        $notif->setContent($user->getUsername() . ' applied for your group');
         $manager->persist($notif);
 
         $manager->flush();
