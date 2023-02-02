@@ -29,6 +29,9 @@ class Notification
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\OneToOne(inversedBy: 'notification', cascade: ['persist', 'remove'])]
+    private ?Invitation $invitation = null;
+
     public function __construct()
     {
         $this->setIsSeen(false);
@@ -96,6 +99,18 @@ class Notification
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getInvitation(): ?Invitation
+    {
+        return $this->invitation;
+    }
+
+    public function setInvitation(?Invitation $invitation): self
+    {
+        $this->invitation = $invitation;
 
         return $this;
     }

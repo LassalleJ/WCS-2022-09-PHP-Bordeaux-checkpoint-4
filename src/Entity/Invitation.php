@@ -22,6 +22,9 @@ class Invitation
     #[ORM\ManyToOne(inversedBy: 'invitations')]
     private ?Group $fromGroup = null;
 
+    #[ORM\OneToOne(mappedBy: 'invitation', cascade: ['persist', 'remove'])]
+    private ?Notification $notification = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,28 @@ class Invitation
     public function setFromGroup(?Group $fromGroup): self
     {
         $this->fromGroup = $fromGroup;
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($notification === null && $this->notification !== null) {
+            $this->notification->setInvitation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($notification !== null && $notification->getInvitation() !== $this) {
+            $notification->setInvitation($this);
+        }
+
+        $this->notification = $notification;
 
         return $this;
     }

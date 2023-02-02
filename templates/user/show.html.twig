@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.username }} - Profile{% endblock %}
+
+{% block body %}
+    {% include '_navbar-connected.html.twig' %}
+    <h1 class="mt-4 text-center user-username">{{ user.username }}</h1>
+    <div class="mx-auto user-infos-block col-11 col-md-9 col-lg-6">
+        <h3 class="text-center user-block-title">General Informations</h3>
+        <div class="d-flex justify-content-around text-center w-75 mx-auto mt-4">
+            <p class="user-infos-text battletag">#Battletag {{ user.battletag }}</p>
+            {% if user.discord is not null %}
+                <p class="user-infos-text discord">Discord: {{ user.discord }}</p>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="mx-auto user-specificities-block mt-5 col-11 col-md-9 col-lg-6">
+        <h3 class="text-center user-block-title">How he plays</h3>
+        {% if userSpecificities.playingWay == 'casual' %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/casu-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text playing-way mt-2">{{ user.username }} considers himself as a casual player</p>
+            </div>
+        {% elseif userSpecificities.playingWay == 'tryhard' %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/tryhard-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text playing-way mt-2">{{ user.username }} wants to tryhard</p>
+            </div>
+        {% elseif userSpecificities.playingWay == 'both' %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/both-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text playing-way mt-2">{{ user.username }} can both play chill tryhard</p>
+            </div>
+        {% endif %}
+        {% if userSpecificities.roleFlexibility %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/multirole.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text mt-2">{{ user.username }} can endorse several role</p>
+            </div>
+        {% else %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/monorole-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text mt-2">{{ user.username }} isn't able to play several roles</p>
+            </div>
+        {% endif %}
+        {% if userSpecificities.classFlexibility %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/looking-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text mt-2">{{ user.username }} is able to play several classes</p>
+            </div>
+        {% else %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/monoclass-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text mt-2">{{ user.username }} plays only one class</p>
+            </div>
+        {% endif %}
+        {% if userSpecificities.speakEnglish %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/english-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text mt-2">{{ user.username }} speaks english</p>
+            </div>
+        {% else %}
+            <div class="d-flex flex-column align-items-center mt-3">
+                <img src="{{ asset('build/images/noenglish-icon.png') }}" alt="" height="80px" width="80px">
+                <p class="user-infos-text mt-2">{{ user.username }} speaks english</p>
+            </div>
+        {% endif %}
+
+    </div>
+    <div class="mx-auto user-characters-block mt-5 col-11 col-md-9 col-lg-6">
+        <h3 class="text-center user-block-title">Characters</h3>
+        <div class="d-flex justify-content-center flex-wrap">
+            {% for character in userCharacters %}
+                <div class="d-flex flex-column align-items-center mt-3 user-character-block">
+                    <p class="user-character-pseudo">{{ character.pseudo }}</p>
+                    <p class="user-character-class mt-5">{{ character.race }}</p>
+                    {% include '_class-avatar.html.twig' %}
+                    <p class="user-character-class mt-1 mb-1">{{ character.role }}</p>
+                    <p class="user-character-class mt-1 mb-1">Ilvl {{ character.gearScore }}</p>
+                    <p class="user-character-class mt-1 mb-1">Score {{ character.score }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% if hasApplied %}
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="{{ path('app_recruit', {id: user.id}) }}">
+                <button class="btn btn-primary">Accept his application</button>
+            </a>
+            <a href="{{ path('app_reject', {id: user.id}) }}">
+                <button class="btn btn-danger">Reject his application</button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

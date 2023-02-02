@@ -178,7 +178,7 @@
                 data-bs-target="#no-specificites-modal">
             I'd like to join this group
         </button>
-    {% else %}
+    {% elseif app.user.inParty is null %}
         <a href="{{ path('app_apply', {id: group.id}) }}">
             <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal"
                     data-bs-target="#no-specificites-modal">

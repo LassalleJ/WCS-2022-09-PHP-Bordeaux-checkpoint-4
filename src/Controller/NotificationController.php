@@ -9,9 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/notification')]
 class NotificationController extends AbstractController
 {
-    #[Route('/notification', name: 'app_notification_show')]
+    #[Route('/', name: 'app_notification_show')]
     public function index(EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
@@ -21,22 +22,39 @@ class NotificationController extends AbstractController
             $user = $this->getUser();
         }
         $notifs = $manager->getRepository(Notification::class)->findBy(
-            ['user'=>$user->getId(),
+            ['user' => $user->getId(),
                 'isSeen' => false,
-                ]);
-        $applyNotifs=[];
-        $invitNotifs=[];
-        foreach($notifs as  $notif) {
-            if($notif->getType() === 'Apply') {
-                $applyNotifs[]=$notif;
-            } elseif ($notif->getType()==='Invitation') {
-                $invitNotifs[]=$notif;
+            ]);
+        $applyNotifs = [];
+        $invitNotifs = [];
+        $acceptNotifs = [];
+        $rejectNotifs = [];
+
+        foreach ($notifs as $notif) {
+            if ($notif->getType() === 'Apply') {
+                $applyNotifs[] = $notif;
+            } elseif ($notif->getType() === 'Invitation') {
+                $invitNotifs[] = $notif;
+            } elseif ($notif->getType() === 'Accept') {
+                $acceptNotifs[] = $notif;
+            } elseif ($notif->getType() === 'Reject') {
+                $rejectNotifs[] = $notif;
             }
         }
 
         return $this->render('notification/notifications.html.twig', [
             'applyNotifs' => $applyNotifs,
             'invitNotifs' => $invitNotifs,
+            'acceptNotifs' => $acceptNotifs,
+            'rejectNotifs' => $rejectNotifs,
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_notification_delete')]
+    public function deleteNotification(EntityManagerInterface $manager, Notification $notification): Response
+    {
+        $manager->getRepository(Notification::class)->remove($notification, true);
+
+        return $this->redirectToRoute('app_notification_show');
     }
 }
