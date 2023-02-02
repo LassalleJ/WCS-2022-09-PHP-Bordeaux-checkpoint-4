@@ -368,4 +368,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getUnseenNotif(): ?array
+    {
+        $unseenNotifs=[];
+        foreach ($this->getNotifications() as $notif) {
+            if ($notif->isIsSeen() === false) {
+                $unseenNotifs[]=$notif;
+            }
+        }
+        return $unseenNotifs;
+    }
 }

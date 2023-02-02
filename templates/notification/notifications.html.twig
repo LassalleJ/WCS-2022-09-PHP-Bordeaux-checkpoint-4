@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }} - Notifications{% endblock %}
+
+{% block body %}
+    {% include '_navbar-connected.html.twig' %}
+
+    {% if applyNotifs is not empty %}
+        <div class="notif-block mt-5 mx-auto">
+            <p class="notifs-title">Applications</p>
+            {% for notif in applyNotifs %}
+                <div class="d-flex justify-content-center gap-3 notif-single-block">
+                    <a href="#" class="notif-link">
+                        <div class="d-flex justify-content-center gap-3">
+                            <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
+                                at {{ notif.createdAt |date('H:i') }}</p>
+                            <p class="notifs-text notifs-content">{{ notif.content }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if invitNotifs is not empty %}
+        <div class="notif-block mt-5 mx-auto">
+            <p class="notifs-title">Invitations</p>
+            {% for notif in applyNotifs %}
+                <div class="d-flex justify-content-center gap-3 notif-single-block">
+                    <a href="#" class="notif-link">
+                        <div class="d-flex justify-content-center gap-3">
+                            <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
+                                at {{ notif.createdAt |date('H:i') }}</p>
+                            <p class="notifs-text notifs-content">{{ notif.content }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

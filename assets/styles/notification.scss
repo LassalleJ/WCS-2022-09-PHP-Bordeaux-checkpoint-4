@@ -1,0 +1,42 @@
+.notif-block {
+  background-color: $background-dark;
+  width:82%;
+}
+.notifs-title {
+  color:$main-title;
+  font-family: LifeCraft, serif;
+  font-size:1.8rem;
+  text-align: center;
+  position:relative;
+  &:after {
+    content:"";
+    width:90%;
+    height:1px;
+    background-color: $main-background;
+    position:absolute;
+    bottom:0;
+    left:5%;
+  }
+}
+.notifs-text {
+  color:white;
+}
+.notifs-date {
+  width:40%
+}
+.notifs-content {
+  width:60%;
+}
+.notif-link {
+  &:hover {
+    //background-color: $main-background;
+    border:3px solid $main-background;
+  }
+  &:active {
+    border:3px solid $main-background;
+  }
+}
+.notif-single-block {
+  width:85%;
+  margin:auto;
+}
