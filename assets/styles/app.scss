@@ -13,6 +13,7 @@ $main-title: #8d6f23;
 @import 'navbar.scss';
 @import 'groupDetails.scss';
 @import 'notification.scss';
+@import 'user.scss';
 
 body {
   background-color: $main-background;
@@ -27,4 +28,18 @@ body {
 }
 a {
   text-decoration: none;
+}
+body {
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

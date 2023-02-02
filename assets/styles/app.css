@@ -14,10 +14,11 @@
 
 .group-block {
   height: 380px;
-  width: 82%;
   background-color: #0B0B0F;
   color: white;
   margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0B0B0F;
 }
 
 .group-details-name {
@@ -37,6 +38,10 @@
 
 .role-icon {
   border: 2px solid #E3CF94;
+}
+
+.second-row-group-details {
+  width: 90%;
 }
 
 .navbar-brand {
@@ -130,6 +135,84 @@
   margin: auto;
 }
 
+.user-username {
+  font-family: LifeCraft, sans-serif;
+  font-size: 48px;
+}
+
+.user-infos-block, .user-specificities-block, .user-characters-block {
+  background-color: #0B0B0F;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0B0B0F;
+}
+
+.user-infos-text {
+  color: white;
+  font-family: "Roboto Thin", serif;
+  vertical-align: center;
+}
+
+.user-block-title {
+  font-family: LifeCraft, serif;
+  color: #8d6f23;
+  position: relative;
+  line-height: 48px;
+}
+.user-block-title:after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+}
+
+.battletag, .discord {
+  border: 1px solid #0074E0;
+  background-color: #0074E0;
+  height: 60px;
+  border-radius: 5px;
+  width: 30%;
+  padding-top: 5px;
+}
+
+.battletag {
+  border: 1px solid #0074E0;
+  background-color: #0074E0;
+}
+
+.discord {
+  border: 1px solid #5865F2;
+  background-color: #5865F2;
+}
+
+.user-characters-block {
+  padding-bottom: 30px;
+}
+
+.user-character-block {
+  border: 2px solid #8d6f23;
+  background-color: #8d6f23;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #8d6f23;
+}
+
+.user-character-pseudo {
+  font-family: "Roboto Thin", serif;
+  font-size: 1.5rem;
+  position: absolute;
+}
+.user-character-pseudo:after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #0B0B0F;
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+}
+
 body {
   background-color: #E3CF94;
   height: 100vh;
@@ -144,6 +227,21 @@ body {
 
 a {
   text-decoration: none;
+}
+
+body {
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */

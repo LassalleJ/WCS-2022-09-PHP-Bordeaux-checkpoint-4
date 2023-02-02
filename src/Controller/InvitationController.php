@@ -44,12 +44,60 @@ class InvitationController extends AbstractController
         $notif = new Notification();
         $notif->setType("Apply");
         $notif->setUser($groupLeader);
+        $notif->setInvitation($invitation);
         $notif->setContent($user->getUsername() . ' applied for your group');
         $manager->persist($notif);
-
         $manager->flush();
 
         $this->addFlash('success', 'Your application has been sent to the group leader');
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/accept/{id}', name: 'app_recruit')]
+    public function acceptApplication(EntityManagerInterface $manager, User $user): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        } else {
+            /** @var User $currentUser */
+            $currentUser = $this->getUser();
+        }
+        $invitationRepository=$manager->getRepository(Invitation::class);
+        $invitations = $invitationRepository->findBy([
+            'user' => $user->getId(),
+            'fromGroup' => $currentUser->getInParty()->getId()
+        ]);
+        foreach($invitations as $invitation) {
+            $manager->getRepository(Invitation::class)->remove($invitation);
+        }
+        $user->setInParty($currentUser->getInParty());
+        $manager->persist($user);
+        $manager->flush();
+        $this->addFlash('success', 'You have successfully recruited a new group member !');
+
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/reject/{id}', name: 'app_reject')]
+    public function rejectApplication(EntityManagerInterface $manager, User $user): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        } else {
+            /** @var User $currentUser */
+            $currentUser = $this->getUser();
+        }
+        $invitationRepository=$manager->getRepository(Invitation::class);
+        $invitations = $invitationRepository->findBy([
+            'user' => $user->getId(),
+            'fromGroup' => $currentUser->getInParty()->getId()
+        ]);
+        foreach($invitations as $invitation) {
+            $manager->getRepository(Invitation::class)->remove($invitation, true);
+        }
+
+        $this->addFlash('rejection', 'You have rejected the application !');
 
         return $this->redirectToRoute('app_home');
     }

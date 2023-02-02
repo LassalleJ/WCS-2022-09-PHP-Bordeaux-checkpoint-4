@@ -10,7 +10,7 @@
             <p class="notifs-title">Applications</p>
             {% for notif in applyNotifs %}
                 <div class="d-flex justify-content-center gap-3 notif-single-block">
-                    <a href="#" class="notif-link">
+                    <a href="{{ path('app_user_show', {id: notif.invitation.user.id}) }}" class="notif-link">
                         <div class="d-flex justify-content-center gap-3">
                             <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
                                 at {{ notif.createdAt |date('H:i') }}</p>
@@ -26,7 +26,7 @@
             <p class="notifs-title">Invitations</p>
             {% for notif in applyNotifs %}
                 <div class="d-flex justify-content-center gap-3 notif-single-block">
-                    <a href="#" class="notif-link">
+                    <a href="{{ path('app_user_show', {id: notif.user.id}) }}" class="notif-link">
                         <div class="d-flex justify-content-center gap-3">
                             <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
                                 at {{ notif.createdAt |date('H:i') }}</p>
