@@ -11,12 +11,19 @@ $main-title: #8d6f23;
 @import 'userSpecificities.scss';
 @import 'home.scss';
 @import 'navbar.scss';
+@import 'groupDetails.scss';
 
 body {
   background-color: $main-background;
+  height:100vh;
 }
 .footer-block {
   height:50px;
   background-color: $background-dark;
   margin-top:20px;
+  //position:sticky;
+  bottom:0;
+}
+a {
+  text-decoration: none;
 }

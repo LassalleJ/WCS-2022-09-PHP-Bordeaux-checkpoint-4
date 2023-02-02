@@ -50,14 +50,32 @@
   background-color: #0B0B0F;
 }
 
+.group-member-infos {
+  width: 20%;
+}
+
+.show-group-details {
+  height: 450px;
+}
+
+.group-member-scores {
+  max-width: 25%;
+}
+
 body {
   background-color: #E3CF94;
+  height: 100vh;
 }
 
 .footer-block {
   height: 50px;
   background-color: #0B0B0F;
   margin-top: 20px;
+  bottom: 0;
+}
+
+a {
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=app.css.map */

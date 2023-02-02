@@ -1,7 +1,9 @@
 <div class="navbar">
-    <div class="logo">
-        <p class="main-title-navbar">Looking For Group</p>
-    </div>
+    <a href="{{ path('app_home') }}">
+        <div class="logo">
+            <p class="main-title-navbar">Looking For Group</p>
+        </div>
+    </a>
     <div class="logs-link">
         <button class="btn btn-primary"><a href="{{ path('app_register') }}">Sign Up</a></button>
         <button class="btn-primary login-button"><a href="{{ path('app_login') }}">Log In</a></button>
