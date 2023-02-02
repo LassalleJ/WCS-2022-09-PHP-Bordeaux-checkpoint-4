@@ -39,15 +39,20 @@
   border: 2px solid #E3CF94;
 }
 
-.main-title-navbar {
+.navbar-brand {
   font-family: LifeCraft, serif;
-  color: #8d6f23;
+  color: #8d6f23 !important;
   font-size: 32px;
   margin-left: 10px;
 }
 
-.navbar {
+.navbar-override {
   background-color: #0B0B0F;
+}
+
+.burger-menu-button {
+  border-color: #8d6f23 !important;
+  color: #8d6f23 !important;
 }
 
 .group-member-infos {
@@ -60,6 +65,10 @@
 
 .group-member-scores {
   max-width: 25%;
+}
+
+.leader {
+  color: gold;
 }
 
 body {

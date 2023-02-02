@@ -25,6 +25,11 @@ class Notification
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?User $user = null;
 
+    public function __construct()
+    {
+        $this->setIsSeen(false);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

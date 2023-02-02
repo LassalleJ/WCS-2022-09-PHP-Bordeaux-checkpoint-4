@@ -1,12 +1,9 @@
-<div class="navbar">
-    <a href="{{ path('app_home') }}">
-        <div class="logo">
-            <p class="main-title-navbar">Looking For Group</p>
+<nav class="navbar navbar-dark navbar-expand-lg navbar-override">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">Looking For Group</a>
+        <div class="logins-buttons">
+            <a href="{{ path('app_register') }}"><button class="btn btn-primary">Sign up</button></a>
+            <a href="{{ path('app_login') }}"><button class="btn btn-primary">Log in</button></a>
         </div>
-    </a>
-    <div class="logs-link">
-        <button class="btn btn-primary"><a href="{{ path('app_register') }}">Sign Up</a></button>
-        <button class="btn-primary login-button"><a href="{{ path('app_login') }}">Log In</a></button>
     </div>
-
-</div>
+</nav>

@@ -31,6 +31,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($j = 16; $j < 25; $j++) {
             for ($k = 0; $k < 5; $k++) {
                 $user = new User();
+                if($k===0) {
+                    $user->setIsLeader(true);
+                }
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->randomElement(self::USERNAMES));
                 $user->setPassword(password_hash('123456789', null));
@@ -47,6 +50,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($l = 0; $l < 4; $l++) {
             for ($m = 0; $m < 4; $m++) {
                 $user = new User();
+                if($m===0) {
+                    $user->setIsLeader(true);
+                }
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->randomElement(self::USERNAMES));
                 $user->setPassword(password_hash('123456789', null));
@@ -63,6 +69,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $bothIndex=0;
         for ($l = 4; $l < 8; $l++) {
             for ($m = 0; $m < 3; $m++) {
+                if ($m === 0) {
+                    $user->setIsLeader(true);
+                }
                 $user = new User();
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->randomElement(self::USERNAMES));
@@ -80,6 +89,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($l = 8; $l < 12; $l++) {
             for ($m = 0; $m < 2; $m++) {
                 $user = new User();
+                if ($m === 0) {
+                    $user->setIsLeader(true);
+                }
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->randomElement(self::USERNAMES));
                 $user->setPassword(password_hash('123456789', null));
@@ -96,6 +108,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($l = 12; $l < 16; $l++) {
             for ($m = 0; $m < 1; $m++) {
                 $user = new User();
+                $user->setIsLeader(true);
                 $user->setEmail($faker->email());
                 $user->setUsername($faker->randomElement(self::USERNAMES));
                 $user->setPassword(password_hash('123456789', null));
