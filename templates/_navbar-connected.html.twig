@@ -1,14 +1,18 @@
-<div class="navbar">
-    <a href="{{ path('app_home') }}">
-        <div class="logo">
-            <p class="main-title-navbar">Looking For Group</p>
+<nav class="navbar navbar-dark navbar-expand-lg navbar-override">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">Looking For Group</a>
+        <div class="d-flex gap-4">
+            <button class="navbar-toggler burger-menu-button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-    </a>
-    <div class="user-navbar-block">
-        BLOCK USER
-    </div>
-    <div class="logs-link">
-        <button class="btn btn-primary"><a href="{{ path('app_logout') }}">Log Out</a></button>
-    </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="{{ path('app_logout') }}">Log out</a>
+            </div>
+        </div>
 
-</div>
+    </div>
+</nav>

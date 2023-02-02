@@ -65,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Group $inParty = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isLeader = null;
+
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
@@ -72,6 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->characters = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->setCreatedAt(new DateTimeImmutable());
+        $this->setIsLeader(false);
     }
 
     public function getId(): ?int
@@ -349,6 +353,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setInParty(?Group $inParty): self
     {
         $this->inParty = $inParty;
+
+        return $this;
+    }
+
+    public function isIsLeader(): ?bool
+    {
+        return $this->isLeader;
+    }
+
+    public function setIsLeader(?bool $isLeader): self
+    {
+        $this->isLeader = $isLeader;
 
         return $this;
     }

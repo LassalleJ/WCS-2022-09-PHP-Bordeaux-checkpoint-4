@@ -1,9 +1,14 @@
-.main-title-navbar {
+.navbar-brand {
   font-family: LifeCraft, serif;
-  color:$main-title;
+  color:$main-title !important;
   font-size:32px;
   margin-left:10px;
 }
-.navbar {
+.navbar-override {
   background-color: $background-dark;
+}
+
+.burger-menu-button {
+  border-color:$main-title !important;
+  color:$main-title !important;
 }
