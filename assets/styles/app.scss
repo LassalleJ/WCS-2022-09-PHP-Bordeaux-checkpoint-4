@@ -12,6 +12,11 @@ $main-title: #8d6f23;
 @import 'home.scss';
 @import 'navbar.scss';
 
-.body {
+body {
   background-color: $main-background;
+}
+.footer-block {
+  height:50px;
+  background-color: $background-dark;
+  margin-top:20px;
 }
