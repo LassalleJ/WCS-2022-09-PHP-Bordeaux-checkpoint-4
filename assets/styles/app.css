@@ -50,8 +50,14 @@
   background-color: #0B0B0F;
 }
 
-.body {
+body {
   background-color: #E3CF94;
+}
+
+.footer-block {
+  height: 50px;
+  background-color: #0B0B0F;
+  margin-top: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */

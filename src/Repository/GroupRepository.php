@@ -39,11 +39,27 @@ class GroupRepository extends ServiceEntityRepository
         }
     }
 
-//    public function getLastGroups()
-//    {
-//        $this->createQueryBuilder('g')
-//        ->
-//    }
+    public function getLastUncompleteGroups(): array
+    {
+        $incompleteGroups = $this->createQueryBuilder('g')
+            ->where('g.isFull = :bool')
+            ->setParameter('bool', false)
+            ->orderBy('g.id', 'DESC')
+//            ->innerJoin('g.characters', 'g_characters')
+//            ->andHaving('g_characters = 4')
+            ->getQuery()
+            ->getResult();
+        $lookForLast=[];
+        foreach($incompleteGroups as $group) {
+            if(count($group->getCharacters()) === 4){
+                $lookForLast[] = $group;
+                if (sizeof($lookForLast) === 3) {
+                    break;
+                }
+            }
+        }
+        return $lookForLast;
+    }
 
 //    /**
 //     * @return Group[] Returns an array of Group objects

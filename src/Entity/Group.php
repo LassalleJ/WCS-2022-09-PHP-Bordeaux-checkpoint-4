@@ -6,6 +6,7 @@ use App\Repository\GroupRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
@@ -206,5 +207,36 @@ class Group
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function getTank(): ?Character
+    {
+        foreach ($this->characters as $char) {
+            if ($char->getRole() === 'Tank') {
+                return $char;
+            }
+        }
+        return null;
+    }
+
+    public function getHealer(): ?Character
+    {
+        foreach ($this->characters as $char) {
+            if ($char->getRole() === 'Healer') {
+                return $char;
+            }
+        }
+        return null;
+    }
+
+    public function getDamageDealer(): ?array
+    {
+        $arrayChar=[];
+        foreach ($this->characters as $char) {
+            if ($char->getRole() === 'Damage Dealer') {
+                $arrayChar[]=$char;
+            }
+        }
+        return $arrayChar;
     }
 }
