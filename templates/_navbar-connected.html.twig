@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark navbar-expand-lg navbar-override">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('app_home') }}">Looking For Group</a>
+        <a class="navbar-brand" href="{{ path('app_home') }}">Looking For Fifous</a>
         <div class="d-flex gap-4 align-items-center">
             <p class="username-navbar mb-0">{{ app.user.username }}</p>
             <a href="{{ path('app_notification_show') }}"><i
@@ -16,6 +16,9 @@
             <div class="navbar-nav">
                 <a class="nav-link" href="{{ path('app_user_show', {id:app.user.id}) }}">My profile</a>
                 <a class="nav-link" href="{{ path('app_character_new') }}">Add a character</a>
+                {% if app.user.inParty is null %}
+                    <a class="nav-link" href="{{ path('app_group_new') }}">Create your group</a>
+                {% endif %}
                 <a class="nav-link" href="{{ path('app_user_edit', {id:app.user.id}) }}">Edit profile</a>
                 <a class="nav-link" href="{{ path('app_user_modifyPassword', {id:app.user.id}) }}">Modify password</a>
                 <a class="nav-link" href="{{ path('app_logout') }}">Log out</a>
