@@ -239,4 +239,15 @@ class Group
         }
         return $arrayChar;
     }
+
+    public function getLeader(): ?User
+    {
+        $leader=null;
+        foreach($this->getUsers() as $member) {
+            if($member->isIsLeader()) {
+                $leader = $member;
+            }
+        }
+        return $leader;
+    }
 }
