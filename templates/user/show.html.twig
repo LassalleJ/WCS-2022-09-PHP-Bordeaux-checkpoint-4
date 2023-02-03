@@ -86,7 +86,7 @@
     </div>
     {% if user == app.user %}
     <div class="d-flex justify-content-around align-items-center mt-4">
-        <a href="{{ path('app_user_specificities') }}"><button class="btn btn-primary">Modify my playing way</button></a>
+        <a href="{{ path('app_user_specificities', {id:user.id}) }}"><button class="btn btn-primary">Modify my playing way</button></a>
         <a href="{{ path('app_user_edit', {id:user.id}) }}"><button class="btn btn-primary">Modify my profile</button></a>
     </div>
     {% endif %}

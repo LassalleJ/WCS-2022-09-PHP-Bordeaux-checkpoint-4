@@ -24,8 +24,7 @@ body {
   height:50px;
   background-color: $background-dark;
   margin-top:20px;
-  //position:sticky;
-  bottom:0;
+  position:fixed;
 }
 a {
   text-decoration: none;
@@ -43,4 +42,12 @@ body {
   100% {
     opacity: 1;
   }
+}
+.error-construction {
+  font-family: LifeCraft, serif;
+  font-size:32px;
+  text-align: center;
+}
+.footer-trick {
+  height:70px;
 }

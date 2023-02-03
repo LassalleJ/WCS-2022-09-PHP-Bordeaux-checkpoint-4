@@ -52,6 +52,7 @@ for (let i=0 ; i < inputClassFlexibility.length ; i++) {
 let inputSpeakEnglish=document.getElementsByClassName('speak-english-select-button')
 let elementsSpeakEnglish = document.getElementById('user_specificities_form_speakEnglish').children
 let radioButtonsSpeakEnglish=[]
+let submitButton=document.getElementById('specificities-submit')
 for (let i =0 ; i < elementsSpeakEnglish.length ; i++) {
     if (elementsSpeakEnglish[i].tagName === 'INPUT') {
         radioButtonsSpeakEnglish.push(elementsSpeakEnglish[i])
@@ -60,6 +61,7 @@ for (let i =0 ; i < elementsSpeakEnglish.length ; i++) {
 for (let i=0 ; i < inputSpeakEnglish.length ; i++) {
     inputSpeakEnglish[i].addEventListener('click', function(){
         radioButtonsSpeakEnglish[i].checked = true
+        submitButton.classList.remove('hidden')
     })
 }
 

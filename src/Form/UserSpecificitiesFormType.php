@@ -51,14 +51,13 @@ class UserSpecificitiesFormType extends AbstractType
                 'choice_attr' => ['type' => 'button'],
                 'expanded'=>true,
             ])
-        ->add('submit', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Specificity::class,
+//            'data_class' => Specificity::class,
         ]);
     }
 }

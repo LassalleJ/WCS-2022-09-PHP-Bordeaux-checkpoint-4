@@ -56,19 +56,27 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/specificities', name: 'app_user_specificities')]
-    public function saveSpecificities(Request $request, EntityManagerInterface $manager)
+    #[Route('/specificities/{id}', name: 'app_user_specificities')]
+    public function saveSpecificities(Request $request, EntityManagerInterface $manager, User $user)
     {
-        $user=$this->getUser();
         $form=$this->createForm(UserSpecificitiesFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $userSpecificities = new Specificity();
-            $userSpecificities=$form->getData();
-            $userSpecificities->setUser($user);
+            if(!$user->getSpecificity()) {
+                $userSpecificities = new Specificity();
+                $userSpecificities->setUser($user);
+            } else {
+                $userSpecificities=$user->getSpecificity();
+            }
+            $userSpecificities->setClassFlexibility($form->getData()['classFlexibility']);
+            $userSpecificities->setRoleFlexibility($form->getData()['roleFlexibility']);
+            $userSpecificities->setPlayingWay($form->getData()['playingWay']);
+            $userSpecificities->setSpeakEnglish($form->getData()['speakEnglish']);
             $manager->persist($userSpecificities);
             $manager->flush();
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_user_show', [
+                'id'=>$user->getId()
+            ]);
 
         }
         return $this->render('user/specificities.html.twig', [
