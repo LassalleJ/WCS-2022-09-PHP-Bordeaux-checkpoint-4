@@ -27,3 +27,25 @@
 .second-row-group-details {
   width:90%;
 }
+.section-title {
+  font-family: LifeCraft, serif;
+  color:$background-dark;
+  font-size:2.2rem;
+  margin-top:10px;
+  text-align:center;
+}
+.corresponding-groups-block {
+  height:400px;
+}
+.corresponding-group-specificity {
+  position:relative;
+  &:before {
+    content:"";
+    width:90%;
+    height:1px;
+    background-color: $main-background;
+    position:absolute;
+    left:5%;
+    top:-8%;
+  }
+}

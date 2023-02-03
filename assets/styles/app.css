@@ -44,6 +44,31 @@
   width: 90%;
 }
 
+.section-title {
+  font-family: LifeCraft, serif;
+  color: #0B0B0F;
+  font-size: 2.2rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.corresponding-groups-block {
+  height: 400px;
+}
+
+.corresponding-group-specificity {
+  position: relative;
+}
+.corresponding-group-specificity:before {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  left: 5%;
+  top: -8%;
+}
+
 .navbar-brand {
   font-family: LifeCraft, serif;
   color: #8d6f23 !important;
@@ -71,6 +96,12 @@
 
 .notifs-empty {
   color: #909092;
+}
+
+.username-navbar {
+  font-family: "LifeCraft", serif;
+  color: #8d6f23;
+  font-size: 1.4rem;
 }
 
 .group-member-infos {
@@ -200,6 +231,7 @@
   background-color: #8d6f23;
   border-radius: 5px;
   box-shadow: 0 0 10px #8d6f23;
+  width: 35%;
 }
 
 .user-character-pseudo {

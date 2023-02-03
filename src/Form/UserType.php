@@ -13,16 +13,10 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
             ->add('password')
-            ->add('isVerified')
             ->add('username')
-            ->add('createdAt')
             ->add('battletag')
             ->add('discord')
-            ->add('isLeader')
-            ->add('specificity')
-            ->add('inParty')
         ;
     }
 

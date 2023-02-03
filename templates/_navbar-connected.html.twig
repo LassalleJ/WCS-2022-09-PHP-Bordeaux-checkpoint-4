@@ -2,6 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_home') }}">Looking For Group</a>
         <div class="d-flex gap-4 align-items-center">
+            <p class="username-navbar mb-0">{{ app.user.username }}</p>
             <a href="{{ path('app_notification_show') }}"><i
                         class="fa-solid fa-bell notifs-bell {% if app.user.unseenNotif | length == 0 %} notifs-empty {% endif %}"></i> {% if app.user.unseenNotif | length != 0 %}
                     <span class="notifs-number text-warning">{{ app.user.unseenNotif | length }} </span>{% endif %}</a>
@@ -14,7 +15,6 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="{{ path('app_user_show', {id:app.user.id}) }}">My profile</a>
-                <a class="nav-link" href="#">Pricing</a>
                 <a class="nav-link" href="{{ path('app_logout') }}">Log out</a>
             </div>
         </div>

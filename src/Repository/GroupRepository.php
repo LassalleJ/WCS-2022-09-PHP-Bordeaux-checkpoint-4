@@ -60,17 +60,18 @@ class GroupRepository extends ServiceEntityRepository
         }
         return $lookForLast;
     }
-
+//
 //    /**
 //     * @return Group[] Returns an array of Group objects
 //     */
-//    public function findByExampleField($value): array
+//    public function findByExampleField(): array
 //    {
 //        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
-//            ->setMaxResults(10)
+//            ->leftJoin('g.users', 'u')
+//            ->innerJoin('u.')
+//            ->andWhere('g.isFull = :val')
+//            ->andWhere('u.specificity = :way')
+//            ->setParameters(['val'=> false, 'way' => 'casual'])
 //            ->getQuery()
 //            ->getResult()
 //        ;
