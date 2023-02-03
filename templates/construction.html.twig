@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+    {% include '_navbar-connected.html.twig' %}
+    <div class="d-flex flex-column align-items-center mt-5">
+        <p class="error-construction">Oops...Sorry, this part of the site is still under construction.</p>
+        <p class="error-construction">Come back here later !</p>
+        <a href="{{ path('app_home') }}"><button class="btn btn-primary">Go back to homepage</button></a>
+    </div>
+
+{% endblock %}

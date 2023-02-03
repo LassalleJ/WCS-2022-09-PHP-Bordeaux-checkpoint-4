@@ -21,15 +21,17 @@ class HomeController extends AbstractController
         if ($this->getUser()) {
             /** @var User $user */
             $user = $this->getUser();
-            $userGroup = $user->getInParty();
-            $speaksEnglish = $user->getSpecificity()->isSpeakEnglish();
-            $playingWay = $user->getSpecificity()->getPlayingWay();
+            if ($user->getSpecificity() && count($user->getCharacters()) > 0) {
+                $userGroup = $user->getInParty();
+                $speaksEnglish = $user->getSpecificity()->isSpeakEnglish();
+                $playingWay = $user->getSpecificity()->getPlayingWay();
 
-            $notFullGroups = $manager->getRepository(Group::class)->findBy(['isFull' => false]);
-            foreach ($notFullGroups as $group) {
-                $leader = $group->getLeader();
-                if ($leader->getSpecificity()->getPlayingWay() === $playingWay) {
-                    $correspondingGroups[] = $group;
+                $notFullGroups = $manager->getRepository(Group::class)->findBy(['isFull' => false]);
+                foreach ($notFullGroups as $group) {
+                    $leader = $group->getLeader();
+                    if ($leader->getSpecificity()->getPlayingWay() === $playingWay) {
+                        $correspondingGroups[] = $group;
+                    }
                 }
             }
         }

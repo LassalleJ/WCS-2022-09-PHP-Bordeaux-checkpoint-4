@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Character{% endblock %}
+
+{% block body %}
+    <h1>Character</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ character.id }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td>{{ character.pseudo }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{ character.class }}</td>
+            </tr>
+            <tr>
+                <th>Specialisation</th>
+                <td>{{ character.specialisation }}</td>
+            </tr>
+            <tr>
+                <th>Race</th>
+                <td>{{ character.race }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>{{ character.score }}</td>
+            </tr>
+            <tr>
+                <th>GearScore</th>
+                <td>{{ character.gearScore }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ character.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_character_index') }}">back to list</a>
+
+    <a href="{{ path('app_character_edit', {'id': character.id}) }}">edit</a>
+
+    {{ include('character/_delete_form.html.twig') }}
+{% endblock %}

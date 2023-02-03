@@ -31,28 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="no-specificities-modal" data-bs-backdrop="static" data-bs-keyboard="false"
-             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Wait a minute</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        You need to be connected to apply to a group !
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{{ path('app_login') }}">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Log In</button>
-                        </a>
-                        <a href="{{ path('app_register') }}">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sign Up</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     {% endif %}
 </div>
 <div class="group-details group-block mt-5 d-flex flex-column show-group-details col-11 col-md-9 col-lg-7 col-xl-6">
@@ -173,12 +152,7 @@
                 data-bs-target="#not-connected-modal">
             I'd like to join this group
         </button>
-    {% elseif app.user.specificity is null %}
-        <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal"
-                data-bs-target="#no-specificites-modal">
-            I'd like to join this group
-        </button>
-    {% elseif app.user.inParty is null %}
+    {% elseif app.user.inParty is null and app.user.specificity and app.user.characters | length > 0 %}
         <a href="{{ path('app_apply', {id: group.id}) }}">
             <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal"
                     data-bs-target="#no-specificites-modal">

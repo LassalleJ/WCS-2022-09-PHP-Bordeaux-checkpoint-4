@@ -52,10 +52,23 @@
                 cumque cupiditate dolor dolores in iste, maiores mollitia nesciunt omnis placeat rem saepe sapiente
                 tenetur, voluptatem. Ipsa, necessitatibus. </p>
             <p class="text-center">But first, you need to register</p>
-            <a href="{{ path('app_register') }}" class="btn btn-primary mx-auto col-11 col-md-9 col-lg-7 col-xl-6">Create an account</a>
+            <a href="{{ path('app_register') }}" class="btn btn-primary mx-auto col-11 col-md-9 col-lg-7 col-xl-6">Create
+                an account</a>
         </div>
     {% endif %}
     {% if app.user %}
+        {% if app.user.specificity is null %}
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <p class="text-center">You now have an account, but there are still two steps before you can apply to groups !</p>
+                <p class="text-center">You need to specify what kind of players you are</p>
+                <a href="{{ path('app_user_specificities', {id: app.user.id}) }}"><button class="btn btn-primary">Let's go !</button></a>
+            </div>
+            {% elseif app.user.characters | length == 0 %}
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <p class="text-center">We know enough about you, now let's add your character !</p>
+                    <a href="{{ path('app_character_new') }}"><button class="btn btn-primary">Let's go !</button></a>
+                </div>
+        {% endif %}
         {% if userGroup is not null %}
             <section id="user-group-homepage">
                 <div class="section-title">
@@ -124,7 +137,7 @@
                     </div>
                 </a>
             </section>
-        {% else %}
+        {% elseif correspondingGroups is not empty %}
             <section id="user-corresponding-groups">
                 <div class="section-title">
                     <p>Adequate groups</p>
@@ -236,7 +249,7 @@
             </section>
         {% endif %}
     {% endif %}
-    {% if not app.user or userGroup is not null %}
+    {% if not app.user or userGroup is not null or correspondingGroups is empty %}
         <section id="last-three-groups-container">
             <div class="section-title">
                 <p>Last 3 groups formed</p>

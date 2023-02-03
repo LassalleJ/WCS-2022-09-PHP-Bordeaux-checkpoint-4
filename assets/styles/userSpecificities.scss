@@ -1,6 +1,6 @@
 .radio-button-input {
   input[type="radio"] {
-    //display:none;
+    display:none;
   }
   label {
     display:none;
@@ -8,4 +8,7 @@
 }
 .hidden {
   display:none;
+}
+form {
+  margin:auto;
 }
