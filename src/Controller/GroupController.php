@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\User;
 use App\Form\GroupType;
 use App\Repository\GroupRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,21 +24,29 @@ class GroupController extends AbstractController
     }
 
     #[Route('/new', name: 'app_group_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GroupRepository $groupRepository): Response
+    public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $group = new Group();
+        $group->setIsFull(false);
         $form = $this->createForm(GroupType::class, $group);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $groupRepository->save($group, true);
-
-            return $this->redirectToRoute('app_group_index', [], Response::HTTP_SEE_OTHER);
+            $manager->persist($group);
+            /** @var User $user */
+            $user=$this->getUser();
+            $user->setInParty($group);
+            $user->setIsLeader(true);
+            foreach($user->getCharacters() as $character) {
+                $character->setInGroup($group);
+            }
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->renderForm('group/new.html.twig', [
+        return $this->render('group/new.html.twig', [
             'group' => $group,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
