@@ -50,16 +50,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Specificity $specificity = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class, cascade: ['persist', 'remove'])]
     private Collection $notifications;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Invitation::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Invitation::class, cascade: ['persist', 'remove'])]
     private Collection $invitations;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class, cascade: ['persist', 'remove'])]
     private Collection $characters;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class, cascade: ['persist', 'remove'])]
     private Collection $messages;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
