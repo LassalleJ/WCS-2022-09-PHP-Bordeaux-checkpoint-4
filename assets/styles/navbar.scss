@@ -1,0 +1,29 @@
+.navbar-brand {
+  font-family: LifeCraft, serif;
+  color:$main-title !important;
+  font-size:32px;
+  margin-left:10px;
+}
+.navbar-override {
+  background-color: $background-dark;
+}
+
+.burger-menu-button {
+  border-color:$main-title !important;
+  color:$main-title !important;
+}
+.notifs-bell {
+  color:$main-title;
+  font-size:25px;
+}
+.notifs-number {
+  font-size:18px;
+}
+.notifs-empty {
+  color:#909092;
+}
+.username-navbar {
+  font-family: "LifeCraft", serif;
+  color: $main-title;
+  font-size:1.4rem;
+}

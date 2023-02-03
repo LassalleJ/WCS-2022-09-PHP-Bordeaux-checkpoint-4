@@ -1,0 +1,310 @@
+@font-face {
+  font-family: "LifeCraft";
+  src: url("./fonts/LifeCraft/LifeCraft_Font.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+.radio-button-input input[type=radio] {
+  display: none;
+}
+.radio-button-input label {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+form {
+  margin: auto;
+}
+
+.group-block {
+  height: 380px;
+  background-color: #0B0B0F;
+  color: white;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0B0B0F;
+}
+
+.group-details-name {
+  font-family: LifeCraft, serif;
+  font-size: 32px;
+  color: #8d6f23;
+  position: relative;
+}
+.group-details-name:after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  left: 5%;
+}
+
+.role-icon {
+  border: 2px solid #E3CF94;
+}
+
+.second-row-group-details {
+  width: 90%;
+}
+
+.section-title {
+  font-family: LifeCraft, serif;
+  color: #0B0B0F;
+  font-size: 2.2rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.corresponding-groups-block {
+  height: 400px;
+}
+
+.corresponding-group-specificity {
+  position: relative;
+}
+.corresponding-group-specificity:before {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  left: 5%;
+  top: -8%;
+}
+
+.navbar-brand {
+  font-family: LifeCraft, serif;
+  color: #8d6f23 !important;
+  font-size: 32px;
+  margin-left: 10px;
+}
+
+.navbar-override {
+  background-color: #0B0B0F;
+}
+
+.burger-menu-button {
+  border-color: #8d6f23 !important;
+  color: #8d6f23 !important;
+}
+
+.notifs-bell {
+  color: #8d6f23;
+  font-size: 25px;
+}
+
+.notifs-number {
+  font-size: 18px;
+}
+
+.notifs-empty {
+  color: #909092;
+}
+
+.username-navbar {
+  font-family: "LifeCraft", serif;
+  color: #8d6f23;
+  font-size: 1.4rem;
+}
+
+.group-member-infos {
+  width: 20%;
+}
+
+.show-group-details {
+  height: 450px;
+}
+
+.group-member-scores {
+  max-width: 25%;
+}
+
+.leader {
+  color: gold;
+}
+
+.notif-block {
+  background-color: #0B0B0F;
+  width: 82%;
+}
+
+.notifs-title {
+  color: #8d6f23;
+  font-family: LifeCraft, serif;
+  font-size: 1.8rem;
+  text-align: center;
+  position: relative;
+}
+.notifs-title:after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+}
+
+.notifs-text {
+  color: white;
+}
+
+.notifs-date {
+  width: 40%;
+}
+
+.notifs-content {
+  width: 60%;
+}
+
+.notif-link:hover {
+  border: 3px solid #E3CF94;
+}
+.notif-link:active {
+  border: 3px solid #E3CF94;
+}
+
+.notif-single-block {
+  width: 85%;
+  margin: auto;
+}
+
+.delete-notif-icon {
+  color: #8d6f23;
+}
+
+.user-username {
+  font-family: LifeCraft, sans-serif;
+  font-size: 48px;
+}
+
+.user-infos-block, .user-specificities-block, .user-characters-block {
+  background-color: #0B0B0F;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0B0B0F;
+}
+
+.user-infos-text {
+  color: white;
+  font-family: "Roboto Thin", serif;
+  vertical-align: center;
+}
+
+.user-block-title {
+  font-family: LifeCraft, serif;
+  color: #8d6f23;
+  position: relative;
+  line-height: 48px;
+}
+.user-block-title:after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: #E3CF94;
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+}
+
+.battletag, .discord {
+  border: 1px solid #0074E0;
+  background-color: #0074E0;
+  height: 60px;
+  border-radius: 5px;
+  width: 30%;
+  padding-top: 5px;
+}
+
+.battletag {
+  border: 1px solid #0074E0;
+  background-color: #0074E0;
+}
+
+.discord {
+  border: 1px solid #5865F2;
+  background-color: #5865F2;
+}
+
+.user-characters-block {
+  padding-bottom: 30px;
+}
+
+.user-character-block {
+  border: 2px solid #8d6f23;
+  background-color: #8d6f23;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #8d6f23;
+  width: 35%;
+}
+
+.user-character-pseudo {
+  font-family: "Roboto Thin", serif;
+  font-size: 1.5rem;
+  position: absolute;
+}
+.user-character-pseudo:after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #0B0B0F;
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+}
+
+.inputLabel {
+  text-align: center;
+}
+
+.edit-title {
+  font-family: LifeCraft, serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 15px;
+}
+
+body {
+  background-color: #E3CF94;
+  height: 100vh;
+}
+
+.footer-block {
+  height: 50px;
+  background-color: #0B0B0F;
+  margin-top: 20px;
+  position: fixed;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.error-construction {
+  font-family: LifeCraft, serif;
+  font-size: 32px;
+  text-align: center;
+}
+
+.footer-trick {
+  height: 70px;
+}
+
+/*# sourceMappingURL=app.css.map */

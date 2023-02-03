@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }} - Edit{% endblock %}
+
+{% block body %}
+    {% include '_navbar-connected.html.twig' %}
+    <div class="d-flex justify-content-end gap-5 align-items-center">
+        <h1 class="edit-title">Edit my profile</h1>
+        <a href="{{ path('app_user_modifyPassword', {id:app.user.id}) }}"> <button class="btn btn-primary justify-self-end">Modify my password</button></a>
+    </div>
+
+    {{ form_start(form) }}
+    <div class="d-flex flex-column justify-content-center align-items-center gap-1 mb-3">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center gap-1 mb-3">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center gap-1 mb-3">
+        {{ form_row(form.battletag) }}
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center gap-1 mb-3">
+        {{ form_row(form.discord) }}
+    </div>
+    <div class="text-center">
+    <button type="submit" class="btn btn-primary mx-auto">Update</button>
+    </div>
+    {{ form_end(form) }}
+
+
+{% endblock %}

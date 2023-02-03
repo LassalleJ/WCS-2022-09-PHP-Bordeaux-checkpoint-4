@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }} - Notifications{% endblock %}
+
+{% block body %}
+    {% include '_navbar-connected.html.twig' %}
+
+    {% if acceptNotifs is not empty %}
+        <div class="notif-block mt-5 mx-auto">
+            <p class="notifs-title">Application accepted</p>
+            {% for notif in acceptNotifs %}
+                <div class="d-flex justify-content-between gap-3 notif-single-block">
+                    <div class="d-flex justify-content-center gap-3">
+                        <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
+                            at {{ notif.createdAt |date('H:i') }}</p>
+                        <p class="notifs-text notifs-content">{{ notif.content }}</p>
+                    </div>
+                    <a href="{{ path('app_notification_delete', {id : notif.id}) }}"><i class="fa-solid fa-trash-can delete-notif-icon"></i></a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if rejectNotifs is not empty %}
+        <div class="notif-block mt-5 mx-auto">
+            <p class="notifs-title">Application rejected</p>
+            {% for notif in rejectNotifs %}
+                <div class="d-flex justify-content-center gap-3 notif-single-block">
+                    <div class="d-flex justify-content-center gap-3">
+                        <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
+                            at {{ notif.createdAt |date('H:i') }}</p>
+                        <p class="notifs-text notifs-content">{{ notif.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if applyNotifs is not empty %}
+        <div class="notif-block mt-5 mx-auto">
+            <p class="notifs-title">Applications</p>
+            {% for notif in applyNotifs %}
+                <div class="d-flex justify-content-center gap-3 notif-single-block">
+                    <a href="{{ path('app_user_show', {id: notif.invitation.user.id}) }}" class="notif-link">
+                        <div class="d-flex justify-content-center gap-3">
+                            <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
+                                at {{ notif.createdAt |date('H:i') }}</p>
+                            <p class="notifs-text notifs-content">{{ notif.content }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if invitNotifs is not empty %}
+        <div class="notif-block mt-5 mx-auto">
+            <p class="notifs-title">Invitations</p>
+            {% for notif in applyNotifs %}
+                <div class="d-flex justify-content-center gap-3 notif-single-block">
+                    <a href="{{ path('app_user_show', {id: notif.user.id}) }}" class="notif-link">
+                        <div class="d-flex justify-content-center gap-3">
+                            <p class="notifs-text notifs-date ms-3">{{ notif.createdAt |date('d/m/Y') }}
+                                at {{ notif.createdAt |date('H:i') }}</p>
+                            <p class="notifs-text notifs-content">{{ notif.content }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

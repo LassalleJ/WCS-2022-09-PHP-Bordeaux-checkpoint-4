@@ -1,0 +1,703 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LFF - Home{% endblock %}
+
+{% block body %}
+
+    <div class="header-container">
+        {% if app.user %}
+            {% include '_navbar-connected.html.twig' %}
+        {% else %}
+            {% include '_navbar.html.twig' %}
+        {% endif %}
+    </div>
+    {% for message in app.flashes('success') %}
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </symbol>
+        </svg>
+        <div class="alert alert-success alert-dismissible fade show d-flex col-md-8 col-lg-6 col-xl-4  mx-auto"
+             role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill"/>
+            </svg>
+            <div>
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('rejection') %}
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </symbol>
+        </svg>
+        <div class="alert alert-danger alert-dismissible fade show d-flex col-md-8 col-lg-6 col-xl-4  mx-auto"
+             role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill"/>
+            </svg>
+            <div>
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+    {% if not app.user %}
+        <div class="faq-text-home d-flex flex-column justify-content-center">
+            <p class="text-center">Welcome to Looking for Group ! </p>
+            <p class="text-center"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus at atque aut
+                cumque cupiditate dolor dolores in iste, maiores mollitia nesciunt omnis placeat rem saepe sapiente
+                tenetur, voluptatem. Ipsa, necessitatibus. </p>
+            <p class="text-center">But first, you need to register</p>
+            <a href="{{ path('app_register') }}" class="btn btn-primary mx-auto col-11 col-md-9 col-lg-7 col-xl-6">Create
+                an account</a>
+        </div>
+    {% endif %}
+    {% if app.user %}
+        {% if app.user.specificity is null %}
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <p class="text-center">You now have an account, but there are still two steps before you can apply to groups !</p>
+                <p class="text-center">You need to specify what kind of players you are</p>
+                <a href="{{ path('app_user_specificities', {id: app.user.id}) }}"><button class="btn btn-primary">Let's go !</button></a>
+            </div>
+            {% elseif app.user.characters | length == 0 %}
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <p class="text-center">We know enough about you, now let's add your character !</p>
+                    <a href="{{ path('app_character_new') }}"><button class="btn btn-primary">Let's go !</button></a>
+                </div>
+        {% endif %}
+        {% if userGroup is not null %}
+            <section id="user-group-homepage">
+                <div class="section-title">
+                    <p>My group</p>
+                </div>
+                <a href="{{ path('app_group_show', {id : userGroup.id}) }}">
+                    <div class="group-details group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                        <div class="group-details-name">
+                            <p class="text-center mb-1 mt-1">{{ userGroup.name }}</p>
+                        </div>
+                        <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                            {% if userGroup.tank is not null %}
+                                {% set character = userGroup.tank %}
+                                <div class="group-details-tank d-flex flex-column align-items-center">
+                                    <img src="{{ asset('build/images/tank-icon.png') }}"
+                                         class="role-icon" alt="" width="50px"
+                                         height="50px">
+                                    <p class="mb-1">{{ character.user.username }}</p>
+                                    <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                </div>
+                            {% else %}
+                                <div class="group-details-absent d-flex flex-column align-items-center">
+                                    <img src="{{ asset('build/images/looking-icon.png') }}"
+                                         class="role-icon" alt="" width="50px"
+                                         height="50px">
+                                </div>
+                            {% endif %}
+                            {% if userGroup.healer is not null %}
+                                {% set character = userGroup.healer %}
+                                <div class="group-details-healer d-flex flex-column align-items-center">
+                                    <img src="{{ asset('build/images/healer-icon.png') }}"
+                                         class="role-icon" alt="" width="50px"
+                                         height="50px">
+                                    <p class="mb-1">{{ character.user.username }}</p>
+                                    <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                </div>
+                            {% else %}
+                                <div class="group-details-absent d-flex flex-column align-items-center">
+                                    <img src="{{ asset('build/images/looking-icon.png') }}"
+                                         class="role-icon" alt="" width="50px"
+                                         height="50px">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                            {% set ddAbsent = 3 - userGroup.damageDealer|length %}
+                            {% if (ddAbsent) > 0 %}
+                                {% for i in 1..ddAbsent %}
+                                    <div class="group-details-absent d-flex flex-column align-items-center">
+                                        <img src="{{ asset('build/images/looking-icon.png') }}"
+                                             class="role-icon" alt="" width="50px"
+                                             height="50px">
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% for character in userGroup.damageDealer %}
+                                <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                    <img src="{{ asset('build/images/damage-icon.png') }}"
+                                         class="role-icon " alt="" width="50px"
+                                         height="50px">
+                                    <p class="mb-1">{{ character.user.username }}</p>
+                                    <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+            </section>
+        {% elseif correspondingGroups is not empty %}
+            <section id="user-corresponding-groups">
+                <div class="section-title">
+                    <p>Adequate groups</p>
+                </div>
+                {% for group in correspondingGroups %}
+                    <a href="{{ path('app_group_show', {id : group.id}) }}">
+                        <div class="group-details group-block corresponding-groups-block d-flex flex-column justify-content-between mt-4 col-11 col-md-9 col-lg-7 col-xl-6">
+                            <div class="group-details-name">
+                                <p class="text-center mb-1 mt-1">{{ group.name }}</p>
+                            </div>
+                            <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                {% if group.tank is not null %}
+                                    {% set character = group.tank %}
+                                    <div class="group-details-tank d-flex flex-column align-items-center">
+                                        <img src="{{ asset('build/images/tank-icon.png') }}"
+                                             class="role-icon" alt="" width="50px"
+                                             height="50px">
+                                        <p class="mb-1">{{ character.user.username }}</p>
+                                        <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                    </div>
+                                {% else %}
+                                    <div class="group-details-absent d-flex flex-column align-items-center">
+                                        <img src="{{ asset('build/images/looking-icon.png') }}"
+                                             class="role-icon" alt="" width="50px"
+                                             height="50px">
+                                        <p class="mb-1">?????</p>
+                                    </div>
+                                {% endif %}
+                                {% if group.healer is not null %}
+                                    {% set character = group.healer %}
+                                    <div class="group-details-healer d-flex flex-column align-items-center">
+                                        <img src="{{ asset('build/images/healer-icon.png') }}"
+                                             class="role-icon" alt="" width="50px"
+                                             height="50px">
+                                        <p class="mb-1">{{ character.user.username }}</p>
+                                        <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                    </div>
+                                {% else %}
+                                    <div class="group-details-absent d-flex flex-column align-items-center">
+                                        <img src="{{ asset('build/images/looking-icon.png') }}"
+                                             class="role-icon" alt="" width="50px"
+                                             height="50px">
+                                        <p class="mb-1">?????</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                {% set ddAbsent = 3 - group.damageDealer|length %}
+                                {% if (ddAbsent) > 0 %}
+                                    {% for i in 1..ddAbsent %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">?????</p>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {% for character in group.damageDealer %}
+                                    <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                        <img src="{{ asset('build/images/damage-icon.png') }}"
+                                             class="role-icon " alt="" width="50px"
+                                             height="50px">
+                                        <p class="mb-1">{{ character.user.username }}</p>
+                                        <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-center corresponding-group-specificity mb-2">
+                                {% if group.leader.specificity.playingWay == "casu" %}
+                                    <div class="d-flex flex-column align-items-center w-50">
+                                        <img src="{{ asset('build/images/casu-icon.png') }}" alt="" height="60px"
+                                             width="60px">
+                                        <p class="mb-0">Casual</p>
+                                    </div>
+
+                                {% elseif group.leader.specificity.playingWay == "tryhard" %}
+                                    <div class="d-flex flex-column align-items-center w-50">
+                                        <img src="{{ asset('build/images/tryhard-icon.png') }}" alt="" height="60px"
+                                             width="60px">
+                                        <p class="mb-0">Tryhard</p>
+                                    </div>
+                                {% elseif group.leader.specificity.playingWay == "both" %}
+                                    <div class="d-flex flex-column align-items-center w-50">
+                                        <img src="{{ asset('build/images/both-icon.png') }}" alt="" height="60px"
+                                             width="60px">
+                                        <p class="mb-0">Tryhard & Casual</p>
+                                    </div>
+                                {% endif %}
+
+                                {% if group.leader.specificity.speakEnglish %}
+                                    <div class="d-flex flex-column align-items-center w-50">
+                                        <img src="{{ asset('build/images/english-icon.png') }}" alt="" height="60px"
+                                             width="60px">
+                                        <p class="mb-0">English speakers</p>
+                                    </div>
+
+                                {% else %}
+                                    <div class="d-flex flex-column align-items-center w-50">
+                                        <img src="{{ asset('build/images/noenglish-icon.png') }}" alt="" height="60px"
+                                             width="60px">
+                                        <p class="mb-0">No english speakers</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endif %}
+    {% if not app.user or userGroup is not null or correspondingGroups is empty %}
+        <section id="last-three-groups-container">
+            <div class="section-title">
+                <p>Last 3 groups formed</p>
+            </div>
+            <div id="carousel-last-3-complete-groups" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carousel-last-3-complete-groups" data-bs-slide-to="0"
+                            class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carousel-last-3-complete-groups" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carousel-last-3-complete-groups" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <a href="{{ path('app_group_show', {id: last3[0].id}) }}">
+                        <div class="carousel-item active">
+                            <div class="group-details group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                                <div class="group-details-name">
+                                    <p class="text-center mb-1 mt-1">{{ last3[0].name }}</p>
+                                </div>
+                                <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                    {% if last3[0].tank is not null %}
+                                        {% set character = last3[0].tank %}
+                                        <div class="group-details-tank d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/tank-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                    {% if last3[0].healer is not null %}
+                                        {% set character = last3[0].healer %}
+                                        <div class="group-details-healer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/healer-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                    {% set ddAbsent = 3 - last3[0].damageDealer|length %}
+                                    {% if (ddAbsent) > 0 %}
+                                        {% for i in 1..ddAbsent %}
+                                            <div class="group-details-absent d-flex flex-column align-items-center">
+                                                <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                     class="role-icon" alt="" width="50px"
+                                                     height="50px">
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% for character in last3[0].damageDealer %}
+                                        <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/damage-icon.png') }}"
+                                                 class="role-icon " alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ path('app_group_show', {id: last3[1].id}) }}">
+                        <div class="carousel-item">
+                            <div class="group-details group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                                <div class="group-details-name">
+                                    <p class="text-center mb-1 mt-1">{{ last3[1].name }}</p>
+                                </div>
+                                <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                    {% if last3[1].tank is not null %}
+                                        {% set character = last3[1].tank %}
+                                        <div class="group-details-tank d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/tank-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                    {% if last3[1].healer is not null %}
+                                        {% set character = last3[1].healer %}
+                                        <div class="group-details-healer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/healer-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                    {% set ddAbsent = 3 - last3[1].damageDealer|length %}
+                                    {% if (ddAbsent) > 0 %}
+                                        {% for i in 1..ddAbsent %}
+                                            <div class="group-details-absent d-flex flex-column align-items-center">
+                                                <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                     class="role-icon" alt="" width="50px"
+                                                     height="50px">
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% for character in last3[1].damageDealer %}
+                                        <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/damage-icon.png') }}"
+                                                 class="role-icon " alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ path('app_group_show', {id: last3[2].id}) }}">
+                        <div class="carousel-item">
+                            <div class="group-details  group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                                <div class="group-details-name">
+                                    <p class="text-center mb-1 mt-1">{{ last3[2].name }}</p>
+                                </div>
+                                <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                    {% if last3[2].tank is not null %}
+                                        {% set character = last3[2].tank %}
+                                        <div class="group-details-tank d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/tank-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                    {% if last3[2].healer is not null %}
+                                        {% set character = last3[2].healer %}
+                                        <div class="group-details-healer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/healer-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                    {% set ddAbsent = 3 - last3[2].damageDealer|length %}
+                                    {% if (ddAbsent) > 0 %}
+                                        {% for i in 1..ddAbsent %}
+                                            <div class="group-details-absent d-flex flex-column align-items-center">
+                                                <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                     class="role-icon" alt="" width="50px"
+                                                     height="50px">
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% for character in last3[2].damageDealer %}
+                                        <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/damage-icon.png') }}"
+                                                 class="role-icon " alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-last-3-complete-groups"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon carousel-control-button" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-last-3-complete-groups"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if not app.user or userGroup is null %}
+        <section id="home-last-incomplete-container">
+            <div class="section-title">
+                <p>Looking for Last</p>
+            </div>
+            <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0"
+                            class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <a href="{{ path('app_group_show', {id: lookForLast[0].id}) }}">
+                        <div class="carousel-item active">
+                            <div class="group-details group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                                <div class="group-details-name">
+                                    <p class="text-center mb-1 mt-1">{{ lookForLast[0].name }}</p>
+                                </div>
+                                <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                    {% if lookForLast[0].tank is not null %}
+                                        {% set character = lookForLast[0].tank %}
+                                        <div class="group-details-tank d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/tank-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                    {% if lookForLast[0].healer is not null %}
+                                        {% set character = lookForLast[0].healer %}
+                                        <div class="group-details-healer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/healer-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                    {% set ddAbsent = 3 - lookForLast[0].damageDealer|length %}
+                                    {% if (ddAbsent) > 0 %}
+                                        {% for i in 1..ddAbsent %}
+                                            <div class="group-details-absent d-flex flex-column align-items-center">
+                                                <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                     class="role-icon" alt="" width="50px"
+                                                     height="50px">
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% for character in lookForLast[0].damageDealer %}
+                                        <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/damage-icon.png') }}"
+                                                 class="role-icon " alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                    <a href="{{ path('app_group_show', {id: lookForLast[1].id}) }}">
+                        <div class="carousel-item">
+                            <div class="group-details group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                                <div class="group-details-name">
+                                    <p class="text-center mb-1 mt-1">{{ lookForLast[1].name }}</p>
+                                </div>
+                                <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                    {% if lookForLast[1].tank is not null %}
+                                        {% set character = lookForLast[1].tank %}
+                                        <div class="group-details-tank d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/tank-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                    {% if lookForLast[1].healer is not null %}
+                                        {% set character = lookForLast[1].healer %}
+                                        <div class="group-details-healer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/healer-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                    {% set ddAbsent = 3 - lookForLast[1].damageDealer|length %}
+                                    {% if (ddAbsent) > 0 %}
+                                        {% for i in 1..ddAbsent %}
+                                            <div class="group-details-absent d-flex flex-column align-items-center">
+                                                <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                     class="role-icon" alt="" width="50px"
+                                                     height="50px">
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% for character in lookForLast[1].damageDealer %}
+                                        <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/damage-icon.png') }}"
+                                                 class="role-icon " alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                    <a href="{{ path('app_group_show', {id: lookForLast[2].id}) }}">
+                        <div class="carousel-item">
+                            <div class="group-details group-block d-flex flex-column col-11 col-md-9 col-lg-7 col-xl-6">
+                                <div class="group-details-name">
+                                    <p class="text-center mb-1 mt-1">{{ lookForLast[2].name }}</p>
+                                </div>
+                                <div class="first-row-group-details d-flex justify-content-around mt-3 ms-5 me-5">
+                                    {% if lookForLast[2].tank is not null %}
+                                        {% set character = lookForLast[0].tank %}
+                                        <div class="group-details-tank d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/tank-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                    {% if lookForLast[2].healer is not null %}
+                                        {% set character = lookForLast[2].healer %}
+                                        <div class="group-details-healer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/healer-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="group-details-absent d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                 class="role-icon" alt="" width="50px"
+                                                 height="50px">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="second-row-group-details mx-auto d-flex justify-content-around">
+                                    {% set ddAbsent = 3 - lookForLast[2].damageDealer|length %}
+                                    {% if (ddAbsent) > 0 %}
+                                        {% for i in 1..ddAbsent %}
+                                            <div class="group-details-absent d-flex flex-column align-items-center">
+                                                <img src="{{ asset('build/images/looking-icon.png') }}"
+                                                     class="role-icon" alt="" width="50px"
+                                                     height="50px">
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% for character in lookForLast[2].damageDealer %}
+                                        <div class="group-details-damage-dealer d-flex flex-column align-items-center">
+                                            <img src="{{ asset('build/images/damage-icon.png') }}"
+                                                 class="role-icon " alt="" width="50px"
+                                                 height="50px">
+                                            <p class="mb-1">{{ character.user.username }}</p>
+                                            <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

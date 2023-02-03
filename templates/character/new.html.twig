@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Character{% endblock %}
+
+{% block body %}
+    {% include '_navbar-connected.html.twig' %}
+    <h1 class="section-title">Create a new Character</h1>
+    <div class="mx-auto col-8">
+    {{ form_start(form) }}
+
+        {{ form_row(form.pseudo) }}
+        {{ form_row(form.class) }}
+        {{ form_row(form.race) }}
+        {{ form_row(form.role) }}
+        <div class="d-flex justify-content-between">
+            {{ form_row(form.score) }}
+            {{ form_row(form.gearScore) }}
+        </div>
+
+        <button class="btn btn-primary w-100 mt-5">{{ button_label|default('Save') }}</button>
+
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

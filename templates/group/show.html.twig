@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block body %}
+<div class="header-container">
+    {% if app.user %}
+        {% include '_navbar-connected.html.twig' %}
+    {% else %}
+        {% include '_navbar.html.twig' %}
+        <!-- Modal -->
+        <div class="modal fade" id="not-connected-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Wait a minute</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        You need to be connected to apply to a group !
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ path('app_login') }}">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Log In</button>
+                        </a>
+                        <a href="{{ path('app_register') }}">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sign Up</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+</div>
+<div class="group-details group-block mt-5 d-flex flex-column show-group-details col-11 col-md-9 col-lg-7 col-xl-6">
+    <div class="group-details-name mb-4">
+        <p class="text-center mb-1 mt-1">{{ group.name }}</p>
+    </div>
+    {% if group.tank is not null %}
+        {% set character = group.tank %}
+        <div class="group-details-tank d-flex justify-content-around">
+            <img src="{{ asset('build/images/tank-icon.png') }}"
+                 class="role-icon" alt="" width="50px"
+                 height="50px">
+            <div class="group-member-infos d-flex flex-column align-items-center">
+                <div class="d-flex gap-1 align-items-center">
+                    {% if character.user.isleader %}
+                        <i class="fa-solid fa-crown leader mb-1"></i>
+                    {% endif %}
+                    <p class="group-details-username mb-1">{{ character.user.username }}</p>
+                </div>
+                <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+            </div>
+            <div class="group-member-scores d-flex flex-column align-items-center">
+                <p class="group-details-ilvl mb-1">Ilvl {{ character.gearScore }}</p>
+                <p class="group-details-char-pseudo">Score {{ character.score }}</p>
+            </div>
+            {% include '_class-avatar.html.twig' %}
+        </div>
+    {% else %}
+        <div class="group-details-absent d-flex justify-content-around  mb-3">
+            <img src="{{ asset('build/images/looking-icon.png') }}"
+                 class="role-icon" alt="" width="50px"
+                 height="50px">
+            <div class="group-member-infos d-flex flex-column align-items-center">
+                <p class="group-details-username mb-1">?????</p>
+            </div>
+            <img src="{{ asset('build/images/looking-icon.png') }}"
+                 class="role-icon" alt="" width="50px"
+                 height="50px">
+        </div>
+    {% endif %}
+    {% if group.healer is not null %}
+        {% set character = group.healer %}
+        <div class="group-details-healer d-flex justify-content-around">
+            <img src="{{ asset('build/images/healer-icon.png') }}"
+                 class="role-icon" alt="" width="50px"
+                 height="50px">
+            <div class="group-member-infos d-flex flex-column align-items-center">
+                <div class="d-flex gap-1 align-items-center">
+                    {% if character.user.isleader %}
+                        <i class="fa-solid fa-crown leader mb-1"></i>
+                    {% endif %}
+                    <p class="group-details-username mb-1">{{ character.user.username }}</p>
+                </div>
+                <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+            </div>
+            <div class="group-member-scores d-flex flex-column align-items-center">
+                <p class="group-details-ilvl mb-1">Ilvl {{ character.gearScore }}</p>
+                <p class="group-details-char-pseudo">Score {{ character.score }}</p>
+            </div>
+            {% include '_class-avatar.html.twig' %}
+        </div>
+    {% else %}
+        <div class="group-details-absent d-flex justify-content-around  mb-3">
+            <img src="{{ asset('build/images/looking-icon.png') }}"
+                 class="role-icon" alt="" width="50px"
+                 height="50px">
+            <div class="group-member-infos d-flex flex-column align-items-center">
+                <p class="group-details-username mb-1">?????</p>
+            </div>
+            <img src="{{ asset('build/images/looking-icon.png') }}"
+                 class="role-icon" alt="" width="50px"
+                 height="50px">
+        </div>
+    {% endif %}
+
+    {% set ddAbsent = 3 - group.damageDealer|length %}
+    {% if (ddAbsent) > 0 %}
+        {% for i in 1..ddAbsent %}
+            <div class="group-details-absent d-flex justify-content-around mb-3">
+                <img src="{{ asset('build/images/looking-icon.png') }}"
+                     class="role-icon" alt="" width="50px"
+                     height="50px">
+                <div class="group-member-infos d-flex flex-column align-items-center">
+                    <p class="group-details-username mb-1">?????</p>
+                </div>
+                <img src="{{ asset('build/images/looking-icon.png') }}"
+                     class="role-icon" alt="" width="50px"
+                     height="50px">
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% for character in group.damageDealer %}
+        <div class="group-details-damage-dealer d-flex justify-content-around">
+            <img src="{{ asset('build/images/damage-icon.png') }}"
+                 class="role-icon " alt="" width="50px"
+                 height="50px">
+            <div class="group-member-infos d-flex flex-column align-items-center">
+                <div class="d-flex gap-1 align-items-center">
+                    {% if character.user.isleader %}
+                        <i class="fa-solid fa-crown leader mb-1"></i>
+                    {% endif %}
+                    <p class="group-details-username mb-1">{{ character.user.username }}</p>
+                </div>
+                <p class="group-details-char-pseudo">({{ character.pseudo }})</p>
+            </div>
+            <div class="group-member-scores d-flex flex-column align-items-center">
+                <p class="group-details-ilvl mb-1">Ilvl {{ character.gearScore }}</p>
+                <p class="group-details-char-pseudo">Score {{ character.score }}</p>
+            </div>
+            {% include '_class-avatar.html.twig' %}
+        </div>
+    {% endfor %}
+</div>
+<div class="col-12 text-center">
+    {% if not app.user %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal"
+                data-bs-target="#not-connected-modal">
+            I'd like to join this group
+        </button>
+    {% elseif app.user.inParty is null and app.user.specificity and app.user.characters | length > 0 %}
+        <a href="{{ path('app_apply', {id: group.id}) }}">
+            <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal"
+                    data-bs-target="#no-specificites-modal">
+                I'd like to join this group
+            </button>
+        </a>
+    {% endif %}
+</div>
+
+    {% endblock %}

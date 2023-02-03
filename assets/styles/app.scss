@@ -1,0 +1,53 @@
+$main-background: #E3CF94;
+$background-dark: #0B0B0F;
+$main-title: #8d6f23;
+@font-face {
+  font-family: 'LifeCraft';
+  src: url('./fonts/LifeCraft/LifeCraft_Font.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@import 'userSpecificities.scss';
+@import 'home.scss';
+@import 'navbar.scss';
+@import 'groupDetails.scss';
+@import 'notification.scss';
+@import 'user.scss';
+@import 'editUser.scss';
+
+body {
+  background-color: $main-background;
+  height:100vh;
+}
+.footer-block {
+  height:50px;
+  background-color: $background-dark;
+  margin-top:20px;
+  position:fixed;
+}
+a {
+  text-decoration: none;
+}
+body {
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.error-construction {
+  font-family: LifeCraft, serif;
+  font-size:32px;
+  text-align: center;
+}
+.footer-trick {
+  height:70px;
+}
