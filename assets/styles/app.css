@@ -249,6 +249,17 @@
   bottom: 0;
 }
 
+.inputLabel {
+  text-align: center;
+}
+
+.edit-title {
+  font-family: LifeCraft, serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 15px;
+}
+
 body {
   background-color: #E3CF94;
   height: 100vh;

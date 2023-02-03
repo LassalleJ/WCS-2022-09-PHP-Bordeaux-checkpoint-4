@@ -4,16 +4,7 @@
 
 {% block body %}
     {% include '_navbar-connected.html.twig' %}
-    {% if user == app.user %}
-    <div class="d-flex justify-content-around align-items-center">
-        <a href="{{ path('app_user_specificities') }}"><button class="btn btn-primary">Modify my playing way</button></a>
-        <h1 class="mt-4 text-center user-username">{{ user.username }}</h1>
-        <a href="{{ path('app_user_edit', {id:user.id}) }}"><button class="btn btn-primary">Modify my profile</button></a>
-    </div>
-    {% else %}
-        <h1 class="mt-4 text-center user-username">{{ user.username }}</h1>
-    {% endif %}
-
+    <h1 class="mt-4 text-center user-username">{{ user.username }}</h1>
     <div class="mx-auto user-infos-block col-11 col-md-9 col-lg-6">
         <h3 class="text-center user-block-title">General Informations</h3>
         <div class="d-flex justify-content-around text-center w-75 mx-auto mt-4">
@@ -93,6 +84,12 @@
         </div>
 
     </div>
+    {% if user == app.user %}
+    <div class="d-flex justify-content-around align-items-center mt-4">
+        <a href="{{ path('app_user_specificities') }}"><button class="btn btn-primary">Modify my playing way</button></a>
+        <a href="{{ path('app_user_edit', {id:user.id}) }}"><button class="btn btn-primary">Modify my profile</button></a>
+    </div>
+    {% endif %}
     {% if hasApplied %}
         <div class="d-flex justify-content-center gap-3 mt-4">
             <a href="{{ path('app_recruit', {id: user.id}) }}">
