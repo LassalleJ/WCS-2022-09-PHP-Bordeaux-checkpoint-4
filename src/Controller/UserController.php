@@ -137,7 +137,7 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->renderForm('user/ModifyPassword.html.twig', ['form' => $form, 'user' => $user]);
+        return $this->render('user/modify-password.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
