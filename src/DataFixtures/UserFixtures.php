@@ -15,6 +15,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
+        $user= new User;
+        $user->setEmail('admin@admin.com');
+        $user->setUsername($faker->randomElement(self::USERNAMES));
+        $user->setPassword(password_hash('123456789', null));
+        $user->setBattletag($faker->userName());
+        $user->setDiscord($faker->userName());
+        $user->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
         for ($i = 0; $i < 50; $i++) {
             $user = new User;
             $user->setEmail($faker->email());
